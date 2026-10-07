@@ -58,6 +58,12 @@ body,
   height: 100%;
 }
 
+/* Reserve the scrollbar track permanently so the layout never slides sideways
+   when a scrollbar shows or hides (modal scroll lock, loading content, …). */
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: var(--font-sans);
   font-size: 14.5px;
@@ -759,8 +765,9 @@ svg {
   align-items: center;
   gap: 16px;
   padding: 0 30px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
+  /* Solid on purpose: backdrop-filter repaints on every pixel change behind the
+     bar and shows up as flicker/jitter while the cursor moves. */
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
@@ -993,11 +1000,12 @@ svg {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 16px 18px;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  transition: box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
+/* Hover feedback without movement: the card stays exactly where it is. */
 .stat-card:hover {
-  transform: translateY(-2px);
+  border-color: var(--border-strong);
   box-shadow: var(--shadow-lg);
 }
 
@@ -1917,12 +1925,12 @@ svg {
   border-radius: var(--radius);
   padding: 14px 15px;
   background: var(--surface);
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .concept-card:hover {
-  transform: translateY(-2px);
   border-color: var(--border-strong);
+  box-shadow: var(--shadow);
 }
 
 .concept-card__head {
@@ -2298,13 +2306,12 @@ svg {
   border-radius: var(--radius);
   background: var(--surface);
   color: var(--text);
-  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .quick-action:hover {
   border-color: var(--secondary);
   background: #f8fbff;
-  transform: translateY(-2px);
   text-decoration: none;
 }
 

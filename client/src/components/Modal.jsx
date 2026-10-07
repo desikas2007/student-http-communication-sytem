@@ -13,6 +13,8 @@ const Modal = ({ open, onClose, title, subtitle, children, footer, size = 'lg' }
       if (event.key === 'Escape') onClose();
     };
     const previousOverflow = document.body.style.overflow;
+    // The viewport reserves its scrollbar track (scrollbar-gutter: stable in
+    // index.css), so hiding the background scrollbar must not move the page.
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKeyDown);
 
