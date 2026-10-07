@@ -6,7 +6,6 @@ import {
   Activity,
   History,
   FlaskConical,
-  User,
   LogOut,
   GraduationCap,
   X,
@@ -35,11 +34,11 @@ export const NAV_SECTIONS = [
       { to: '/api-test-center', label: 'API Test Center', icon: FlaskConical },
     ],
   },
-  {
-    title: 'Account',
-    items: [{ to: '/profile', label: 'Profile', icon: User }],
-  },
 ];
+
+// The profile page has no sidebar entry on purpose: it is reached only through
+// the avatar icon in the top navbar.
+export const EXTRA_PAGE_TITLES = { '/profile': 'Profile' };
 
 /** Left navigation rail - collapsible on small screens. */
 const Sidebar = ({ open, onClose }) => {

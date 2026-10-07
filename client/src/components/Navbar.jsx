@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, Wifi, WifiOff, Loader2 } from 'lucide-react';
-import { NAV_SECTIONS, initials } from './Sidebar';
+import { NAV_SECTIONS, EXTRA_PAGE_TITLES, initials } from './Sidebar';
 import { useAuth } from '../context/AuthContext';
 import { fetchHealth } from '../services/httpLogService';
 
@@ -12,6 +12,8 @@ const titleForPath = (pathname) => {
       if (item.end ? pathname === item.to : pathname.startsWith(item.to)) return item.label;
     }
   }
+  // Routes that are intentionally not part of the sidebar navigation.
+  if (EXTRA_PAGE_TITLES[pathname]) return EXTRA_PAGE_TITLES[pathname];
   if (pathname === '/login') return 'Sign in';
   return 'Not found';
 };
@@ -85,13 +87,18 @@ const Navbar = ({ onMenuClick }) => {
           {status.label}
         </span>
 
-        <div className="navbar__user">
+        <Link
+          to="/profile"
+          className="navbar__user"
+          aria-label="Open profile"
+          title="Profile"
+        >
           <span className="avatar">{initials(user?.name)}</span>
           <div className="navbar__user-text">
             <p className="navbar__user-name">{user?.name || 'Student'}</p>
             <p className="navbar__user-role">{user?.department || ''}</p>
           </div>
-        </div>
+        </Link>
       </div>
     </header>
   );

@@ -89,7 +89,6 @@ const Dashboard = () => {
     { to: '/examinations', label: 'View Examinations', icon: FileText, description: 'GET /api/exams' },
     { to: '/student-information', label: 'Submit Information', icon: User, description: 'POST /api/students/information' },
     { to: '/http-monitor', label: 'HTTP Monitor', icon: Activity, description: 'Live request inspector' },
-    { to: '/profile', label: 'Profile', icon: Monitor, description: 'GET /api/students/profile' },
   ];
 
   if (loading) {
